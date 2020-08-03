@@ -1,25 +1,48 @@
-import React from 'react';
-import logo from '../assets/logo.svg';
+import React, { Component, Fragment } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
+import { ContentBlock } from '../utils/helpers'
+import MainNav from "./MainNav";
+import Login from "./Login";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    componentDidMount() {
+        this.props.dispatch(handleInitialData())
+    }
+
+    render() {
+        const { authUser } = this.props;
+
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    {authUser === null ? (
+                        <Route
+                            render={() => (
+                                <ContentBlock>
+                                    <Login />
+                                </ContentBlock>
+                            )}
+                        />
+                    ) : (
+                    <Fragment>
+                        <MainNav />
+                        <ContentBlock>
+                            User Logged in
+                        </ContentBlock>
+                    </Fragment>
+                )}
+                </div>
+            </BrowserRouter>
+        );
+    }
 }
 
-export default App;
+function mapStateToProps({ authUser }) {
+    return {
+        authUser
+    }
+}
+
+export default connect(mapStateToProps)(App)
