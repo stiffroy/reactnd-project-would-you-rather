@@ -7,7 +7,8 @@ import {
     Button,
     Divider,
     Form,
-    Radio
+    Radio,
+    Label
 } from 'semantic-ui-react'
 
 export class Options extends Component {
@@ -50,10 +51,20 @@ export class Options extends Component {
                 </Header>
                 {answered ? (
                     <div>
+                        {users[authUser].answers[question.id] === 'optionOne' && (
+                            <Label as='a' color='teal' ribbon='right'>
+                                Your choice
+                            </Label>
+                        )}
                         <p style={{ textAlign: 'center' }}>
                             {question.optionOne.text}
                         </p>
                         <Divider horizontal>Or</Divider>
+                        {users[authUser].answers[question.id] === 'optionTwo' && (
+                            <Label as='a' color='teal' ribbon='right'>
+                                Your choice
+                            </Label>
+                        )}
                         <p style={{ textAlign: 'center' }}>
                             {question.optionTwo.text}
                         </p>
