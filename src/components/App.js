@@ -7,6 +7,7 @@ import MainNav from "./MainNav"
 import Login from "./Login"
 import Dashboard from "./Dashboard"
 import NotFound from "./NotFound"
+import NewQuestion from "./NewQuestion";
 
 class App extends Component {
     componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
                         <ContentBlock>
                             <Switch>
                                 <Route path="/" component={Dashboard} exact />
+                                <Route path="/poll/new" component={NewQuestion} />
                                 <Route component={NotFound} />
                             </Switch>
                         </ContentBlock>
