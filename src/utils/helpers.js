@@ -9,4 +9,4 @@ export const ContentBlock = ({ children }) => (
             <Grid.Column style={{ maxWidth: APP_MAX_WIDTH }}>{children}</Grid.Column>
         </Grid.Row>
     </Grid>
-);
+)
