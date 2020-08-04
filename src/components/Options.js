@@ -34,7 +34,9 @@ export class Options extends Component {
         if (this.state.value !== '') {
             const { authUser, question, handleAnswerQuestion } = this.props
             handleAnswerQuestion(authUser, question.id, this.state.value)
-            //Todo go to the question details page after submit
+            this.setState({
+                detailView: true
+            })
         }
     }
 
