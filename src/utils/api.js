@@ -15,6 +15,5 @@ export function getInitialData() {
 }
 
 export function saveQuestionAnswer(authUser, qid, answer) {
-    console.log('auth user in api :', authUser)
     return _saveQuestionAnswer({ authedUser: authUser, qid, answer });
 }

@@ -36,9 +36,6 @@ export class Options extends Component {
         this.setState({
             value
         })
-
-        console.log('value', value)
-        console.log('state', this.state)
     }
 
     render() {
