@@ -19,8 +19,22 @@ class ViewQuestion extends Component {
 
     render() {
         const {questions, user, match} = this.props
-        console.log(this.props)
-        const question = questions[match.params.id]
+        const question = questions[match.params.question_id]
+
+        if (!question) {
+            return (
+                <Fragment>
+                    <Header as="h2">
+                        Bad Question
+                        <Header.Subheader>
+                            Please make sure you have selected the right question
+                        </Header.Subheader>
+                    </Header>
+                    <p>Go back to <Link to={'/'}>home</Link></p>
+                </Fragment>
+            )
+        }
+
         const votesOptionOne = question.optionOne.votes.length
         const votesOptionTwo = question.optionTwo.votes.length
         const votesTotal = votesOptionOne + votesOptionTwo
