@@ -9,6 +9,7 @@ import Dashboard from "./Dashboard"
 import NotFound from "./NotFound"
 import NewQuestion from "./NewQuestion";
 import ViewQuestion from "./ViewQuestion";
+import LeaderBoard from "./LeaderBoard";
 
 class App extends Component {
     componentDidMount() {
@@ -37,6 +38,7 @@ class App extends Component {
                                 <Route path="/" component={Dashboard} exact />
                                 <Route path="/poll/new" component={NewQuestion} exact />
                                 <Route path="/poll/:id" component={ViewQuestion} />
+                                <Route path="/leaderboard" component={LeaderBoard} />
                                 <Route component={NotFound} />
                             </Switch>
                         </ContentBlock>
