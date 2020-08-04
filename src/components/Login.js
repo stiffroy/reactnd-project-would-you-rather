@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { setAuthUser } from '../actions/authUser'
 import {
     Segment,
     Grid,
@@ -9,7 +10,6 @@ import {
     Loader,
     Dimmer
 } from 'semantic-ui-react'
-import { setAuthUser } from '../actions/authUser'
 
 class Login extends Component {
     state = {
@@ -17,7 +17,7 @@ class Login extends Component {
         loading: false,
     }
     formatDropdownData = () => {
-        const { users } = this.props;
+        const { users } = this.props
 
         return users.map(user => ({
             key: user.id,
@@ -98,7 +98,7 @@ class Login extends Component {
 function mapStateToProps({ users }) {
     return {
         users: Object.values(users)
-    };
+    }
 }
 
 export default connect(mapStateToProps, { setAuthUser })(Login)
