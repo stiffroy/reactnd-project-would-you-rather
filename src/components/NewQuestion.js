@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {connect} from "react-redux"
 import {Redirect} from "react-router-dom"
 import PropTypes from "prop-types"
+import { ROUTES } from '../utils/routes'
 import {
     Segment,
     Header,
@@ -51,7 +52,7 @@ class NewQuestion extends Component {
         const disabled = !this.state.optionOne || !this.state.optionTwo
 
         if (this.state.success) {
-            return <Redirect to='/' />
+            return <Redirect to={ROUTES.home} />
         }
 
         return (

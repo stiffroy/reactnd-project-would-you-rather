@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from "react"
 import {connect} from "react-redux"
 import PropTypes from "prop-types"
+import { ROUTES } from '../utils/routes'
 import {
     Header,
     Segment,
@@ -30,7 +31,7 @@ class ViewQuestion extends Component {
                             Please make sure you have selected the right question
                         </Header.Subheader>
                     </Header>
-                    <p>Go back to <Link to={'/'}>home</Link></p>
+                    <p>Go back to <Link to={ROUTES.home}>home</Link></p>
                 </Fragment>
             )
         }
@@ -89,7 +90,7 @@ class ViewQuestion extends Component {
                         {votesOptionTwo} out of {votesTotal} votes
                     </Progress>
                 </Segment>
-                <Link to='/' >
+                <Link to={ROUTES.home} >
                     <Button size="tiny" floated="right" color={"blue"}>
                         Back
                     </Button>

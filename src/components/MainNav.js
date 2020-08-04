@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { ROUTES } from '../utils/routes'
 import {
     Menu,
     Image,
@@ -25,9 +26,9 @@ class MainNav extends Component {
         return(
             <Container>
                 <Menu pointing>
-                    <Menu.Item name="home" as={NavLink} to="/" exact />
-                    <Menu.Item name="new poll" as={NavLink} to="/poll/new" />
-                    <Menu.Item name="leader board" as={NavLink} to="/leaderboard" />
+                    <Menu.Item name="home" as={NavLink} to={ROUTES.home} exact />
+                    <Menu.Item name="new poll" as={NavLink} to={ROUTES.new_poll} />
+                    <Menu.Item name="leader board" as={NavLink} to={ROUTES.leaderboard} />
                     {authUser &&  (
                         <Menu.Menu position="right">
                             <Menu.Item>

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import { ContentBlock } from '../utils/helpers'
+import { ROUTES } from '../utils/routes'
 import MainNav from "./MainNav"
 import Login from "./Login"
 import Dashboard from "./Dashboard"
@@ -35,10 +36,10 @@ class App extends Component {
                         <MainNav />
                         <ContentBlock>
                             <Switch>
-                                <Route path="/" component={Dashboard} exact />
-                                <Route path="/add" component={NewQuestion} />
-                                <Route path="/questions/:question_id" component={ViewQuestion} />
-                                <Route path="/leaderboard" component={LeaderBoard} />
+                                <Route path={ROUTES.home} component={Dashboard} exact />
+                                <Route path={ROUTES.new_poll} component={NewQuestion} />
+                                <Route path={ROUTES.view_poll} component={ViewQuestion} />
+                                <Route path={ROUTES.leaderboard} component={LeaderBoard} />
                                 <Route component={NotFound} />
                             </Switch>
                         </ContentBlock>
