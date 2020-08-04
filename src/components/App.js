@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import { ContentBlock } from '../utils/helpers'
-import MainNav from "./MainNav";
-import Login from "./Login";
+import MainNav from "./MainNav"
+import Login from "./Login"
+import Dashboard from "./Dashboard"
+import NotFound from "./NotFound"
 
 class App extends Component {
     componentDidMount() {
-        this.props.dispatch(handleInitialData())
+        this.props.handleInitialData()
     }
 
     render() {
@@ -29,7 +31,10 @@ class App extends Component {
                     <Fragment>
                         <MainNav />
                         <ContentBlock>
-                            User Logged in
+                            <Switch>
+                                <Route path="/" component={Dashboard} exact />
+                                <Route component={NotFound} />
+                            </Switch>
                         </ContentBlock>
                     </Fragment>
                 )}
@@ -45,4 +50,4 @@ function mapStateToProps({ authUser }) {
     }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, {handleInitialData})(App)
