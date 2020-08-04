@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 
 class ViewQuestion extends Component {
     static propTypes = {
-        question: PropTypes.array.isRequired,
+        questions: PropTypes.object.isRequired,
         user: PropTypes.object.isRequired
     }
 
@@ -48,7 +48,7 @@ class ViewQuestion extends Component {
                     </Header.Subheader>
                 </Header>
                 <Segment
-                    color="#d4d4d5"
+                    color='grey'
                     style={{ backgroundColor: `${optionOne}` }}
                 >
                     {voteUser === 'optionOne' && <UserVoteLabel />}
@@ -62,7 +62,7 @@ class ViewQuestion extends Component {
                     </Progress>
                 </Segment>
                 <Segment
-                    color="#d4d4d5"
+                    color='grey'
                     style={{ backgroundColor: `${optionTwo}` }}
                 >
                     {voteUser === 'optionTwo' && <UserVoteLabel />}
@@ -98,7 +98,6 @@ const UserVoteLabel = () => (
 
 function mapStateToProps({ users, authUser, questions }) {
     const user = users[authUser]
-    console.log(questions)
     return {
         user,
         questions
