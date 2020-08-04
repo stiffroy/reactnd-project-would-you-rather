@@ -1,6 +1,7 @@
 import {
     _getUsers,
     _getQuestions,
+    _saveQuestionAnswer,
 } from "./_DATA";
 
 export function getInitialData() {
@@ -11,4 +12,9 @@ export function getInitialData() {
         users,
         questions,
     }))
+}
+
+export function saveQuestionAnswer(authUser, qid, answer) {
+    console.log('auth user in api :', authUser)
+    return _saveQuestionAnswer({ authedUser: authUser, qid, answer });
 }
