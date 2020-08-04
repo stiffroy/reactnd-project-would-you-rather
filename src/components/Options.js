@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from "react"
 import PropTypes from 'prop-types'
+import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {handleAnswerQuestion} from '../actions/users'
 import {
@@ -8,7 +9,7 @@ import {
     Divider,
     Form,
     Radio,
-    Label
+    Label,
 } from 'semantic-ui-react'
 
 export class Options extends Component {
@@ -17,11 +18,15 @@ export class Options extends Component {
     }
 
     state = {
-        value: null
+        value: null,
+        detailView: false
     }
 
     handleView = (e) => {
         e.preventDefault()
+        this.setState({
+            detailView: true
+        })
     }
 
     handleSubmit = (e) => {
@@ -44,6 +49,10 @@ export class Options extends Component {
         const answered = Object.keys(users[authUser].answers).includes(question.id)
         const disabled = !this.state.value
 
+        if (this.state.detailView) {
+            return <Redirect to={`/poll/${question.id}`} />
+        }
+
         return (
             <Fragment>
                 <Header as="h5" textAlign="left">
@@ -52,18 +61,14 @@ export class Options extends Component {
                 {answered ? (
                     <div>
                         {users[authUser].answers[question.id] === 'optionOne' && (
-                            <Label as='a' color='teal' ribbon='right'>
-                                Your choice
-                            </Label>
+                            <VoteLabel />
                         )}
                         <p style={{ textAlign: 'center' }}>
                             {question.optionOne.text}
                         </p>
                         <Divider horizontal>Or</Divider>
                         {users[authUser].answers[question.id] === 'optionTwo' && (
-                            <Label as='a' color='teal' ribbon='right'>
-                                Your choice
-                            </Label>
+                            <VoteLabel />
                         )}
                         <p style={{ textAlign: 'center' }}>
                             {question.optionTwo.text}
@@ -111,6 +116,12 @@ export class Options extends Component {
         )
     }
 }
+
+const VoteLabel = () => (
+    <Label as='a' color='teal' ribbon='right'>
+        Your vote
+    </Label>
+)
 
 function mapStateToProps({ authUser, users }) {
     return {
