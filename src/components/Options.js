@@ -52,7 +52,7 @@ export class Options extends Component {
         const disabled = !this.state.value
 
         if (this.state.detailView) {
-            return <Redirect to={`/poll/${question.id}`} />
+            return <Redirect to={`/questions/${question.id}`} />
         }
 
         return (

@@ -36,8 +36,8 @@ class App extends Component {
                         <ContentBlock>
                             <Switch>
                                 <Route path="/" component={Dashboard} exact />
-                                <Route path="/poll/new" component={NewQuestion} exact />
-                                <Route path="/poll/:id" component={ViewQuestion} />
+                                <Route path="/add" component={NewQuestion} />
+                                <Route path="/questions/:question_id" component={ViewQuestion} />
                                 <Route path="/leaderboard" component={LeaderBoard} />
                                 <Route component={NotFound} />
                             </Switch>
