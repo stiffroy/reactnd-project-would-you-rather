@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Redirect} from "react-router-dom"
 import {connect} from "react-redux"
 import {handleAnswerQuestion} from '../actions/users'
+import {questionRoute} from "../utils/routes";
 import {
     Header,
     Button,
@@ -22,21 +23,27 @@ export class Options extends Component {
         detailView: false
     }
 
-    handleView = (e) => {
-        e.preventDefault()
+    showDetailsView() {
         this.setState({
             detailView: true
         })
+    }
+
+    handleView = (e) => {
+        e.preventDefault()
+        this.showDetailsView()
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
         if (this.state.value !== '') {
             const { authUser, question, handleAnswerQuestion } = this.props
-            handleAnswerQuestion(authUser, question.id, this.state.value)
-            this.setState({
-                detailView: true
-            })
+
+            setTimeout(() => {
+                handleAnswerQuestion(authUser, question.id, this.state.value)
+            }, 2000)
+
+            this.showDetailsView()
         }
     }
 
@@ -49,10 +56,10 @@ export class Options extends Component {
     render() {
         const { question, users, authUser } = this.props
         const answered = Object.keys(users[authUser].answers).includes(question.id)
-        const disabled = !this.state.value
+        const { value, detailView } = this.state
 
-        if (this.state.detailView) {
-            return <Redirect to={`/questions/${question.id}`} />
+        if (detailView) {
+            return <Redirect to={questionRoute(question.id)} />
         }
 
         return (
@@ -108,7 +115,7 @@ export class Options extends Component {
                                 size="tiny"
                                 fluid
                                 positive
-                                disabled={disabled}
+                                disabled={!value}
                                 content="Submit"
                             />
                         </Form.Field>
