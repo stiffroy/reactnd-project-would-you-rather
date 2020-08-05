@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import { ContentBlock } from '../utils/helpers'
@@ -12,6 +12,17 @@ import NewQuestion from "./NewQuestion";
 import ViewQuestion from "./ViewQuestion";
 import LeaderBoard from "./LeaderBoard";
 
+const PrivateRoute = ({ component: Component,  ...rest }) => (
+    <Route {...rest} render={(props) => (
+        !!rest.authUser === true
+            ? <Component {...props} />
+            : <Redirect to={{
+                pathname: ROUTES.login,
+                state: { referrer: props.location.pathname }
+            }} />
+    )}/>
+)
+
 class App extends Component {
     componentDidMount() {
         this.props.handleInitialData()
@@ -23,28 +34,19 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    {authUser === null ? (
-                        <Route
-                            render={() => (
-                                <ContentBlock>
-                                    <Login />
-                                </ContentBlock>
-                            )}
-                        />
-                    ) : (
                     <Fragment>
                         <MainNav />
                         <ContentBlock>
                             <Switch>
-                                <Route path={ROUTES.home} component={Dashboard} exact />
-                                <Route path={ROUTES.new_poll} component={NewQuestion} />
-                                <Route path={ROUTES.view_poll} component={ViewQuestion} />
-                                <Route path={ROUTES.leaderboard} component={LeaderBoard} />
+                                <Route path={ROUTES.login} component={Login} />
+                                <PrivateRoute path={ROUTES.home} component={Dashboard} authUser={authUser} exact />
+                                <PrivateRoute path={ROUTES.new_poll} component={NewQuestion} authUser={authUser} />
+                                <PrivateRoute path={ROUTES.view_poll} component={ViewQuestion} authUser={authUser} />
+                                <PrivateRoute path={ROUTES.leaderboard} component={LeaderBoard} authUser={authUser} />
                                 <Route component={NotFound} />
                             </Switch>
                         </ContentBlock>
                     </Fragment>
-                )}
                 </div>
             </BrowserRouter>
         );

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { setAuthUser } from '../actions/authUser'
+import { ROUTES } from '../utils/routes'
+import { Redirect } from 'react-router-dom'
 import {
     Segment,
     Grid,
@@ -15,6 +17,7 @@ class Login extends Component {
     state = {
         user: null,
         loading: false,
+        redirectToReferrer: false,
     }
     formatDropdownData = () => {
         const { users } = this.props
@@ -38,15 +41,22 @@ class Login extends Component {
         const user = this.state.user
 
         new Promise((res, rej) => {
-            setTimeout(() => res(), 1000);
-        }).then(() => setAuthUser(user));
+            setAuthUser(user)
+            setTimeout(() => res(), 1000)
+        }).then(() => console.log('user authenticated'))
 
         this.setState({
-            authenticated: true
+            redirectToReferrer: true
         })
     }
     render() {
-        const { user, loading } = this.state
+        const { user, loading, redirectToReferrer } = this.state
+        const referrer = this.props.location.state ? this.props.location.state.referrer : false
+        const redirectTo = referrer && referrer === ROUTES.login ? ROUTES.home : referrer
+
+        if (redirectToReferrer === true) {
+            return <Redirect to={redirectTo} />
+        }
 
         return (
             <Fragment>
